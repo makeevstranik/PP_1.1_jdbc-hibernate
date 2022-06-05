@@ -11,7 +11,7 @@ public class UserDaoJDBCImpl implements UserDao {
     private Connection connection;
     public UserDaoJDBCImpl() {
         try {
-            this.connection = new Util().getConnection();
+            this.connection = new Util().getJDBCConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -82,5 +82,4 @@ public class UserDaoJDBCImpl implements UserDao {
             e.printStackTrace();
         }
     }
-
 }
