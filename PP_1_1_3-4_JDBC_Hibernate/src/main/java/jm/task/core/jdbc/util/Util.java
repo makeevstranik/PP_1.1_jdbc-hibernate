@@ -15,6 +15,7 @@ import java.util.Properties;
 public class Util {
     // реализуйте настройку соеденения с БД
     final String dbURL = "jdbc:mysql://localhost/db_pp_1_1?useSSL=false";
+    final String dbURLJdbc = "jdbc:mysql://localhost/db_pp_1_1";
     final String driver = "com.mysql.cj.jdbc.Driver";
     final String user = "root";
     // password deleted 5****75*..
@@ -24,7 +25,7 @@ public class Util {
     public Util() {
     }
     public Connection getJDBCConnection() throws SQLException {
-        return DriverManager.getConnection(dbURL, user, password);
+        return DriverManager.getConnection(dbURLJdbc, user, password);
     }
 
     public SessionFactory getSessionFactory() throws HibernateException {
