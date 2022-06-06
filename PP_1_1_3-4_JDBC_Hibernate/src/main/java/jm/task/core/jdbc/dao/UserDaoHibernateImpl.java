@@ -12,6 +12,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
@@ -21,6 +22,7 @@ public class UserDaoHibernateImpl implements UserDao {
             this.factory = new Util().getSessionFactory();
         } catch (HibernateException e) {
             e.printStackTrace();
+            closeFactory();
         }
     }
 
@@ -30,6 +32,9 @@ public class UserDaoHibernateImpl implements UserDao {
             session.beginTransaction();
             session.createSQLQuery(SQLQuery.CREATE_TABLE.getQuery()).executeUpdate();
             session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            closeFactory();
         }
     }
 
@@ -39,6 +44,9 @@ public class UserDaoHibernateImpl implements UserDao {
             session.beginTransaction();
             session.createSQLQuery(SQLQuery.DROP_TABLE.getQuery()).executeUpdate();
             session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            closeFactory();
         }
     }
 
@@ -48,6 +56,9 @@ public class UserDaoHibernateImpl implements UserDao {
             session.beginTransaction();
             session.save(new User(name, lastName, age));
             session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            closeFactory();
         }
     }
 
@@ -60,6 +71,9 @@ public class UserDaoHibernateImpl implements UserDao {
                 session.delete(user);
                 session.getTransaction().commit();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            closeFactory();
         }
     }
 
@@ -73,7 +87,11 @@ public class UserDaoHibernateImpl implements UserDao {
 //            TypedQuery<User> query = session.createQuery(cr);
 //            return  query.getResultList();
             return session.createQuery("select a from User a", User.class).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            closeFactory();
         }
+        return new ArrayList<>();
     }
 
     @Override
@@ -82,6 +100,9 @@ public class UserDaoHibernateImpl implements UserDao {
             session.beginTransaction();
             session.createSQLQuery(SQLQuery.CLEAN_TABLE.getQuery()).executeUpdate();
             session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            closeFactory();
         }
     }
     public void closeFactory() {
