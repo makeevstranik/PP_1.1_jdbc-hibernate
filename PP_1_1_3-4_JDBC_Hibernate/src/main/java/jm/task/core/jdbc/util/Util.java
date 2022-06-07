@@ -18,14 +18,22 @@ public class Util {
     final private static String dbURLJdbc = "jdbc:mysql://localhost/db_pp_1_1";
     final private static String driver = "com.mysql.cj.jdbc.Driver";
     final private static String user = "root";
-    // password deleted 5****75*..
-    final private static String password = "**";
+    final private static String password = "**";  // password deleted 5****75*..
 
-    public static Connection getJDBCConnection() throws SQLException {
-        return DriverManager.getConnection(dbURLJdbc, user, password);
-    }
+    private static SessionFactory sessionFactory;
 
     public static SessionFactory getSessionFactory() throws HibernateException {
+        if (sessionFactory == null) {
+            Configuration configuration = setConfiguration();
+            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+                    .applySettings(configuration.getProperties())
+                    .build();
+            sessionFactory = setConfiguration()
+                    .buildSessionFactory(serviceRegistry);
+        }
+        return sessionFactory;
+    }
+    private static Configuration setConfiguration() {
         Configuration configuration = new Configuration();
         Properties settings = new Properties();
         settings.put(Environment.DRIVER, driver);
@@ -38,10 +46,11 @@ public class Util {
 
         configuration.setProperties(settings);
         configuration.addAnnotatedClass(User.class);
-
-        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-                .applySettings(configuration.getProperties()).build();
-
-        return configuration.buildSessionFactory(serviceRegistry);
+        return  configuration;
     }
+
+    public static Connection getJDBCConnection() throws SQLException {
+        return DriverManager.getConnection(dbURLJdbc, user, password);
+    }
+
 }
