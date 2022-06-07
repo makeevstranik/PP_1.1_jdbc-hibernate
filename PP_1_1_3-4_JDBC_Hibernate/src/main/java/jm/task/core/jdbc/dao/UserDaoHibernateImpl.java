@@ -20,7 +20,7 @@ public class UserDaoHibernateImpl implements UserDao {
     private SessionFactory factory;
     public UserDaoHibernateImpl() {
         try {
-            this.factory = new Util().getSessionFactory();
+            this.factory = Util.getSessionFactory();
         } catch (HibernateException e) {
             e.printStackTrace();
             closeFactory();

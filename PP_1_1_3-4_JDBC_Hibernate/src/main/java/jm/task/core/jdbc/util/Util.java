@@ -14,21 +14,18 @@ import java.util.Properties;
 
 public class Util {
     // реализуйте настройку соеденения с БД
-    final String dbURL = "jdbc:mysql://localhost/db_pp_1_1?useSSL=false";
-    final String dbURLJdbc = "jdbc:mysql://localhost/db_pp_1_1";
-    final String driver = "com.mysql.cj.jdbc.Driver";
-    final String user = "root";
+    final private static String dbURL = "jdbc:mysql://localhost/db_pp_1_1?useSSL=false";
+    final private static String dbURLJdbc = "jdbc:mysql://localhost/db_pp_1_1";
+    final private static String driver = "com.mysql.cj.jdbc.Driver";
+    final private static String user = "root";
     // password deleted 5****75*..
-    final String password = "---";
+    final private static String password = "**";
 
-
-    public Util() {
-    }
-    public Connection getJDBCConnection() throws SQLException {
+    public static Connection getJDBCConnection() throws SQLException {
         return DriverManager.getConnection(dbURLJdbc, user, password);
     }
 
-    public SessionFactory getSessionFactory() throws HibernateException {
+    public static SessionFactory getSessionFactory() throws HibernateException {
         Configuration configuration = new Configuration();
         Properties settings = new Properties();
         settings.put(Environment.DRIVER, driver);
@@ -41,6 +38,7 @@ public class Util {
 
         configuration.setProperties(settings);
         configuration.addAnnotatedClass(User.class);
+
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties()).build();
 

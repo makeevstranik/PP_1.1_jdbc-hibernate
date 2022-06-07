@@ -1,6 +1,8 @@
 package jm.task.core.jdbc.model;
 
 import lombok.*;
+import org.hibernate.annotations.Immutable;
+
 import javax.persistence.*;
 
 @ToString
@@ -9,6 +11,7 @@ import javax.persistence.*;
 //@Setter
 
 @Entity
+@Immutable
 @Table(name = "users")
 public class User {
     @Id
