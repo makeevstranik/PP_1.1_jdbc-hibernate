@@ -19,7 +19,7 @@ public class Util {
     final String driver = "com.mysql.cj.jdbc.Driver";
     final String user = "root";
     // password deleted 5****75*..
-    final String password = "****";
+    final String password = "---";
 
 
     public Util() {
