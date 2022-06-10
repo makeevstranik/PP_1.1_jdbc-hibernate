@@ -12,7 +12,7 @@ public class Util {
         String dbURL = "jdbc:mysql://localhost/db_pp_1_1";
         String user = "root";
         // PASSWORD WAS DELETED
-        String password = "NO_PASSWORD";
+        String password = "***";
         this.connection = DriverManager.getConnection(dbURL, user, password);
         System.out.println("Connection OK");
     }
